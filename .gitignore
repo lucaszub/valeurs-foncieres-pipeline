@@ -1,0 +1,13 @@
+# Environnement local
+.env
+*.pyc
+__pycache__/
+
+# Dossiers générés par Airflow
+logs/
+plugins/__pycache__/
+config/__pycache__/
+
+# Fichiers temporaires
+*.swp
+.DS_Store
