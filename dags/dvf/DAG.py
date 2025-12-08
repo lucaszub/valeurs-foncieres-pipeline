@@ -3,18 +3,19 @@ from datetime import datetime
 from airflow import DAG
 from airflow.operators.python import PythonOperator
 
-from dvf.task import download_and_preview_dvf
+from dvf.task import load_dvf_to_postgres
 
 
 with DAG(
-    dag_id="test_valeur_fonciere",
-    description="Petit DAG de démonstration pour tester l'UI Airflow.",
+    dag_id="load_dvf_to_postgres",
+    description="Charge un échantillon DVF dans Postgres.",
     schedule_interval=None,
     start_date=datetime(2024, 1, 1),
     catchup=False,
     tags=["dvf"],
 ) as dag:
     PythonOperator(
-        task_id="afficher_valeurs_foncieres",
-        python_callable=download_and_preview_dvf,
+        task_id="charger_dvf_dans_postgres",
+        python_callable=load_dvf_to_postgres,
+        op_kwargs={"rows": 1000000, "postgres_conn_id": "pg_prisma"},
     )
